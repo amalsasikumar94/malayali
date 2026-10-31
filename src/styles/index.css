@@ -1,0 +1,250 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+@import '@fontsource-variable/noto-sans-malayalam/index.css';
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+
+/* Palette sampled from logo.png and the can photography. */
+@theme {
+  --color-ink: #0b0807;
+  --color-ink-2: #150e0c;
+  --color-paper: #ecebe7;
+  --color-red: #cd2129;
+  --color-can: #d63a2a;
+  --color-hot: #ff3b26;
+  --color-lilac: #8c8197;
+  --color-steel: #9aa0a6;
+
+  --font-sans: 'Archivo Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-ml: 'Noto Sans Malayalam Variable', 'Nirmala UI', sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  body {
+    background: var(--color-ink);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-red);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-hot);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    html.has-cursor,
+    html.has-cursor * {
+      cursor: none !important;
+    }
+  }
+}
+
+/* Tall condensed caps; <em> becomes an italic serif accent. */
+@utility display {
+  font-family: var(--font-sans);
+  font-weight: 760;
+  font-stretch: 66%;
+  text-transform: uppercase;
+  letter-spacing: -0.012em;
+  line-height: 0.9;
+  & em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: normal;
+    text-transform: none;
+    letter-spacing: -0.02em;
+  }
+}
+@utility serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+@utility condensed {
+  font-stretch: 70%;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 560;
+}
+@utility outline-type {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--color-paper) 22%, transparent);
+}
+@utility grain {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes scrollcue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* With WebGL the studio glow and back-type are rendered in 3D (so water can refract them). */
+.has-gl [data-backtype],
+.has-gl [data-css-backdrop] {
+  display: none !important;
+}
+
+/* Split-text: a word never breaks across lines */
+.word {
+  white-space: nowrap;
+}
+
+/* Split-text masks */
+.line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+/* Premium button: red fill wipes in from the bolt side */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3.5rem;
+  padding: 0 1.6rem 0 1.8rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-paper) 28%, transparent);
+  overflow: hidden;
+  isolation: isolate;
+  font-stretch: 85%;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.4s,
+    color 0.4s;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-red);
+  clip-path: polygon(0 100%, 0 100%, 0 100%, 0 100%);
+  transition: clip-path 0.6s var(--ease-out-expo);
+}
+.btn:hover::before,
+.btn:focus-visible::before {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.btn:hover {
+  border-color: var(--color-red);
+}
+.btn .arrow {
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.btn:hover .arrow {
+  transform: translateX(4px) rotate(-45deg);
+}
+.btn-solid {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-paper);
+}
+.btn-solid:hover {
+  color: var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Drama dial */
+.drama-range {
+  appearance: none;
+  background: transparent;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.drama-range::-webkit-slider-runnable-track {
+  height: 44px;
+  background: transparent;
+}
+.drama-range::-moz-range-track {
+  height: 44px;
+  background: transparent;
+}
+.drama-range::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: 9px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--color-paper);
+  box-shadow:
+    0 0 0 6px color-mix(in oklab, var(--color-red) 35%, transparent),
+    0 6px 24px rgba(205, 33, 41, 0.6);
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.drama-range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-paper);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-red) 35%, transparent);
+}
+.drama-range:active::-webkit-slider-thumb {
+  transform: scale(1.18);
+}
+.drama-range:focus-visible {
+  outline: none;
+}
+.drama-range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-hot);
+  outline-offset: 4px;
+}
