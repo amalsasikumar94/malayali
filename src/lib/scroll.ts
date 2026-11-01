@@ -25,7 +25,9 @@ function measure() {
     ys.push(top)
     ss.push(i)
     if (el.dataset.sticky !== undefined) {
-      ys.push(top + el.offsetHeight - vh)
+      // the pinned panel is large-viewport tall, so it unpins when the section's end meets its bottom
+      const pin = el.querySelector<HTMLElement>('.sticky')
+      ys.push(top + el.offsetHeight - (pin?.offsetHeight ?? vh))
       ss.push(i + STUCK)
     }
   })

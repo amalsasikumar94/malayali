@@ -31,8 +31,10 @@ export function Open() {
 
   return (
     <section ref={root} id="open" data-scene data-sticky className="relative h-[260vh] max-md:h-[230vh]" aria-labelledby="open-title">
-      <div className="sticky top-0 z-[3] h-svh overflow-clip">
+      {/* backdrop fills the large viewport (no band when mobile toolbars hide); copy stays in the small one */}
+      <div className="sticky top-0 z-[3] h-lvh overflow-clip">
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-ink from-45% via-ink/85 to-transparent md:hidden" />
+        <div className="relative h-svh">
         <div data-open-pop aria-hidden className="invisible absolute top-1/2 left-1/2 -mt-[18vmin] -ml-[18vmin] h-[36vmin] w-[36vmin] rounded-full border border-hot/70 shadow-[0_0_80px_rgba(255,59,38,.35)]" />
         <div data-open-copy className="absolute inset-x-5 bottom-[max(4.5rem,calc(env(safe-area-inset-bottom)+3.5rem))] md:inset-x-auto md:top-1/2 md:bottom-auto md:left-10 md:w-[40vw] md:-translate-y-1/2">
           <div data-open-kicker>
@@ -44,6 +46,7 @@ export function Open() {
           <p data-open-sub className="mt-5 max-w-[24rem] text-lg leading-snug text-paper/70 md:text-xl">
             Lift the tab. Hear the hiss.
           </p>
+        </div>
         </div>
       </div>
     </section>

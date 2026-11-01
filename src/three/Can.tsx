@@ -123,14 +123,16 @@ export function Can({ labelSize, segments, droplets, fizz, compact, reduced }: P
     // Camera with a light pointer parallax (desktop only — pointer stays 0 on touch).
     const cam = state.camera
     const shake = reduced ? 0 : rig.drama * 0.09
+    const { width: w, height: h } = state.size
+    // squat phone screens: pull back in the hero so the can fits above the headline
+    const back = compact ? 1 + 0.16 * Math.min(1, Math.max(0, (w / h - 0.5) / 0.3)) * (1 - Math.min(1, store.s / 0.8)) : 1
     cam.position.set(
       p.cam[0] + store.pointer.x * 0.22 + Math.sin(rig.time * 37) * shake,
       p.cam[1] + store.pointer.y * 0.14 + Math.sin(rig.time * 29 + 1) * shake,
-      p.cam[2],
+      p.cam[2] * back,
     )
     cam.lookAt(lookAt.set(p.look[0], p.look[1], p.look[2]))
     // phones: slide the frame so the subject sits in the upper band, clear of captions
-    const { width: w, height: h } = state.size
     const pc = cam as THREE.PerspectiveCamera
     if (Math.abs((pc.view?.offsetY ?? 0) - p.shift * h) > 0.25 || pc.view?.fullWidth !== w || pc.view?.fullHeight !== h) {
       pc.setViewOffset(w, h, 0, p.shift * h, w, h)

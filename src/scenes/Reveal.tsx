@@ -52,8 +52,10 @@ export function Reveal() {
 
   return (
     <section ref={root} id="reveal" data-scene data-sticky className="relative h-[380vh] max-md:h-[330vh]" aria-labelledby="reveal-title">
-      <div className="sticky top-0 z-[3] h-svh overflow-clip">
+      {/* backdrop fills the large viewport (no band when mobile toolbars hide); copy stays in the small one */}
+      <div className="sticky top-0 z-[3] h-lvh overflow-clip">
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-ink via-ink/75 to-transparent md:hidden" />
+        <div className="relative h-svh">
         <div data-reveal-head className="absolute inset-x-5 bottom-[max(4.5rem,calc(env(safe-area-inset-bottom)+3.5rem))] md:inset-x-10 md:top-28 md:bottom-auto">
           <div data-reveal-kicker>
             <Kicker n="02">The Can</Kicker>
@@ -77,6 +79,7 @@ export function Reveal() {
             </article>
           )
         })}
+        </div>
       </div>
     </section>
   )

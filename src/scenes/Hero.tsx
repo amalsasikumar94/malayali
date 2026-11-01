@@ -28,7 +28,7 @@ export function Hero({ entered, reduced, draggable }: { entered: boolean; reduce
   )
 
   return (
-    <section ref={root} id="hero" data-scene className="relative h-svh min-h-[560px]" style={{ visibility: entered ? 'visible' : 'hidden' }} aria-label='ADIPOLI'>
+    <section ref={root} id="hero" data-scene className="relative h-svh min-h-[560px] short:min-h-0" style={{ visibility: entered ? 'visible' : 'hidden' }} aria-label='ADIPOLI'>
       {/* Desktop back-type sits beneath the canvas: the can floats in front of its own name. */}
       <div data-hero-back data-backtype aria-hidden className="pointer-events-none absolute inset-0 z-[1] hidden items-center justify-center overflow-clip md:flex">
         <div className="display outline-type flex text-[30vw] leading-none">
@@ -42,11 +42,12 @@ export function Hero({ entered, reduced, draggable }: { entered: boolean; reduce
 
       {/* Phones: the can owns the upper band (see choreography shift); all copy lives below it. */}
       <div data-hero-copy className="relative z-[3] flex h-full flex-col justify-end px-5 pb-[max(4.25rem,calc(env(safe-area-inset-bottom)+3.25rem))] md:grid md:grid-rows-[auto_1fr_auto] md:justify-normal md:px-10 md:pt-32 md:pb-10">
-        <p data-hero-fade className="condensed text-[0.68rem] leading-relaxed text-paper/60 md:max-w-[17rem]">
+        <p data-hero-fade className="condensed text-[0.68rem] leading-relaxed text-paper/60 short:hidden md:max-w-[17rem]">
           {brand.descriptor}
         </p>
 
-        <h1 className="display pointer-events-none mt-4 text-[17vw] md:mt-0 md:grid md:content-center md:text-[clamp(3rem,min(7vw,15vh),9rem)]">
+        {/* phones: width-led, but capped by height so squat screens keep the can clear, and kept off the side cues */}
+        <h1 className="display pointer-events-none mt-4 text-[min(17vw,9.5svh,calc((100vw-6rem)/4))] short:mt-0 md:mt-0 md:grid md:content-center md:text-[clamp(3rem,min(7vw,15vh),9rem)]">
           <span data-hero-line className="block md:max-w-[40vw]">
             <Tagline text={brand.taglineA} />
           </span>
