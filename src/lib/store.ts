@@ -20,6 +20,8 @@ export const store = {
   tapPending: false,
   /** The finale’s drama dial, 0..1. */
   drama: 0,
+  /** "Made in Poland" map behind the can, 0..1 (scrubbed by the reveal). */
+  poland: 0,
 }
 
 export type Tier = 'high' | 'mobile' | 'low' | 'none'

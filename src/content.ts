@@ -32,27 +32,10 @@ export const brand = {
 export const label = {
   // [back]
   title: 'A Tropical Magnesium & Vitamin drink.',
-  process: ['Carbonated', 'Pasteurized'],
-  ingredients: [
-    'water',
-    'sugar',
-    'carbon dioxide',
-    'magnesium citrate',
-    'acid: citric acid',
-    'flavourings',
-    'stabilizers: gum arabic and glycerol esters of wood rosins',
-    'orange terpenes',
-    'vitamins: niacin, vitamin B6, biotin, vitamin B12',
-  ],
-  ingredientsVerbatim:
-    'water, sugar, carbon dioxide, magnesium citrate; acid: citric acid; flavourings; stabilizers: gum arabic and glycerol esters of wood rosins, orange terpenes; vitamins: niacin, vitamin B6, biotin, vitamin B12',
   // [back] — printed on the can, quoted verbatim (including its grammar).
   vitaminStatement:
     'The vitamins in the product support the nervous system, boosts metabolism, and help maintain healthy skin, hair, and nails.',
-  producedFor: 'Hexagon Spirits International',
-  address: 'Al. Krakowska 4/6, 02-284 Warsaw, Poland',
   origin: 'Poland',
-  ean: '5900009274042',
 }
 
 /** The actives named on the label, in label order. Display-only grouping. */
@@ -74,15 +57,13 @@ export const nutrition: { per: string; rows: { label: string; value: string }[] 
 }
 export const volume = ''
 
-/**
- * Founder details were not supplied (only the photograph).
- * Fill these in to show the name and biography in the Story scene.
- */
 export const founder = {
   photo: '/assets/brand/founder.png',
-  name: '',
-  role: '',
-  bio: [] as string[],
+  name: 'Chandramohan Nallur',
+  role: 'Founder',
+  bio: [
+    'Chandramohan Nallur is an Indian entrepreneur and community leader based in Poland, originally from Palakkad, Kerala. He pursued postgraduate studies in International Marketing at ESERP Business School in Barcelona, Spain, following his higher education in India. His professional experience spans hospitality, telecommunications, business development, and marketing.',
+  ] as string[],
 }
 
 export const scenes = [

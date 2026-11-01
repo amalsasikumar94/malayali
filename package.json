@@ -6,7 +6,11 @@
     "dev": "vite --host",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && firebase deploy --only hosting"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "type": "module",
   "dependencies": {

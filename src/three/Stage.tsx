@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { Can } from './Can'
 import { Backdrop3D } from './Backdrop3D'
 import { Dust } from './Dust'
+import { PolandMap } from './PolandMap'
 import { rig } from './rig'
 import { ready } from '../lib/ready'
 import { tierSettings } from '../lib/device'
@@ -65,6 +66,7 @@ export function Stage({ tier, compact, reduced }: { tier: Exclude<Tier, 'none'>;
       <Lights />
       <Can labelSize={cfg.label} segments={tier === 'high' ? 96 : 64} droplets={reduced ? Math.min(cfg.droplets, 200) : cfg.droplets} fizz={cfg.fizz} compact={compact} reduced={reduced} />
       <Backdrop3D compact={compact} />
+      <PolandMap compact={compact} />
       <Dust count={reduced ? Math.round(cfg.dust / 2) : cfg.dust} reduced={reduced} />
     </Canvas>
   )

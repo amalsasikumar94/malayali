@@ -42,7 +42,7 @@ export function Open() {
             Crack <em>it.</em>
           </h2>
           <p data-open-sub className="mt-5 max-w-[24rem] text-lg leading-snug text-paper/70 md:text-xl">
-            Lift the tab. Hear the hiss. Carbonated — just like the label says.
+            Lift the tab. Hear the hiss.
           </p>
         </div>
       </div>

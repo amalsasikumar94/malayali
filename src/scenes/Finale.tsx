@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { gsap, MQ, split, useGSAP } from '../lib/gsap'
-import { brand, label } from '../content'
+import { brand } from '../content'
 import { scrollTo } from '../lib/scroll'
 import { DramaDial } from '../components/DramaDial'
 import { TapZone } from '../components/TapZone'
@@ -61,9 +61,6 @@ export function Finale({ draggable }: { draggable: boolean }) {
         <footer data-final-fade className="mt-5 flex flex-col gap-1 border-t border-paper/10 pt-3 text-[0.68rem] text-paper/40 md:mt-6 md:flex-row md:justify-between md:pt-4 md:text-[0.72rem]">
           <span>
             ADIPOLI® · {brand.handle} · From the makers of {brand.makers}
-          </span>
-          <span className="max-md:hidden">
-            Produced for {label.producedFor} · {label.origin}
           </span>
         </footer>
       </div>

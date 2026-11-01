@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { gsap, MQ, split, useGSAP } from '../lib/gsap'
 import { Kicker } from '../components/Kicker'
-import { brand, founder, label } from '../content'
+import { brand, founder } from '../content'
 
 export function Story() {
   const root = useRef<HTMLElement>(null)
@@ -69,9 +69,6 @@ export function Story() {
               {p}
             </p>
           ))}
-          <p className="mt-8 max-w-md text-base leading-relaxed text-paper/55">
-            Produced for {label.producedFor} — {label.address}.
-          </p>
 
           <div data-values className="mt-[8vh]">
             <p className="condensed text-[0.66rem] text-paper/45">Two numbers on every can</p>

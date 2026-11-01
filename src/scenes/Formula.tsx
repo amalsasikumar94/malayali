@@ -27,20 +27,12 @@ export function Formula() {
         const q = split('[data-quote]', 'words')
         gsap.from(q.words, { autoAlpha: 0.12, stagger: 0.04, ease: 'none', scrollTrigger: { trigger: '[data-quote]', start: 'top 80%', end: 'bottom 55%', scrub: true } })
 
-        gsap.from('[data-ing]', { autoAlpha: 0, y: 18, stagger: 0.05, duration: d, scrollTrigger: once(root.current!.querySelector('[data-ings]')!) })
-        gsap.from('[data-spec]', { autoAlpha: 0, y: 24, stagger: 0.07, duration: d, scrollTrigger: once(root.current!.querySelector('[data-specs]')!) })
+        const specs = root.current!.querySelector('[data-specs]')
+        if (specs) gsap.from('[data-spec]', { autoAlpha: 0, y: 24, stagger: 0.07, duration: d, scrollTrigger: once(specs) })
       })
     },
     { scope: root },
   )
-
-  const specs = [
-    { k: 'Process', v: label.process.join(' · ') },
-    { k: 'Country of origin', v: label.origin },
-    { k: 'Produced for', v: `${label.producedFor}, ${label.address}` },
-    { k: 'EAN', v: `${label.ean[0]} ${label.ean.slice(1, 7)} ${label.ean.slice(7)}`, mono: true },
-    ...(volume ? [{ k: 'Volume', v: volume }] : []),
-  ]
 
   return (
     <section ref={root} id="formula" data-scene className="relative" aria-labelledby="formula-title">
@@ -84,26 +76,14 @@ export function Formula() {
           <figcaption className="condensed mt-6 text-[0.66rem] text-paper/45">— As printed on the can</figcaption>
         </figure>
 
-        <div data-ings className="mt-[14vh]">
-          <h3 className="condensed text-[0.7rem] text-paper/55">Ingredients · label order</h3>
-          <ol className="mt-6 flex flex-wrap gap-x-3 gap-y-3 text-[1.15rem] leading-snug md:text-[1.35rem]">
-            {label.ingredients.map((ing, i) => (
-              <li key={ing} data-ing className="flex items-baseline gap-2 rounded-full border border-paper/12 px-4 py-2">
-                <span className="font-mono text-[0.62rem] text-red">{String(i + 1).padStart(2, '0')}</span>
-                <span>{ing}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        <dl data-specs className="mt-[12vh] grid gap-px overflow-hidden rounded-2xl border border-paper/10 bg-paper/10 sm:grid-cols-2">
-          {specs.map((s) => (
-            <div key={s.k} data-spec className="bg-ink p-6 md:p-7">
-              <dt className="condensed text-[0.62rem] text-paper/45">{s.k}</dt>
-              <dd className={`mt-3 text-lg leading-snug ${s.mono ? 'font-mono text-base' : ''}`}>{s.v}</dd>
+        {volume && (
+          <dl data-specs className="mt-[12vh] grid gap-px overflow-hidden rounded-2xl border border-paper/10 bg-paper/10 sm:grid-cols-2">
+            <div data-spec className="bg-ink p-6 md:p-7">
+              <dt className="condensed text-[0.62rem] text-paper/45">Volume</dt>
+              <dd className="mt-3 text-lg leading-snug">{volume}</dd>
             </div>
-          ))}
-        </dl>
+          </dl>
+        )}
 
         {nutrition.rows.length > 0 && (
           <table className="mt-10 w-full text-left">

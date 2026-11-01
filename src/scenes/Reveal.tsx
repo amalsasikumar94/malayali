@@ -1,14 +1,14 @@
 import { useRef } from 'react'
 import { gsap, MQ, split, useGSAP } from '../lib/gsap'
 import { label } from '../content'
+import { store } from '../lib/store'
 import { Kicker } from '../components/Kicker'
 
 /** Facts surfaced while the can turns. All read off the packaging. */
 const callouts = [
   { k: 'Design', t: 'Split by the bolt.', b: 'Off-white over can-red, divided by the ADIPOLI lightning bolt.', pos: 'md:top-[24%] md:left-[8%]' },
   { k: 'Formula', t: 'Magnesium + four vitamins.', b: 'Magnesium citrate with niacin, vitamin B6, biotin and vitamin B12.', pos: 'md:top-[30%] md:right-[9%] md:text-right' },
-  { k: 'Process', t: `${label.process.join('. ')}.`, b: 'Both printed right on the label.', pos: 'md:bottom-[22%] md:left-[8%]' },
-  { k: 'Origin', t: `Made in ${label.origin}.`, b: `Produced for ${label.producedFor}, Warsaw.`, pos: 'md:bottom-[18%] md:right-[9%] md:text-right' },
+  { k: 'Origin', t: `Made in ${label.origin}.`, b: 'A Malayalam name, made in Poland.', pos: 'md:bottom-[18%] md:left-[8%]' },
 ]
 
 export function Reveal() {
@@ -30,19 +30,28 @@ export function Reveal() {
           tl.fromTo(el, { autoAlpha: 0, y: 28, filter: 'blur(8px)' }, { autoAlpha: 1, y: 0, filter: 'blur(0px)' }, at)
           tl.fromTo(el.querySelector('[data-rule]'), { scaleX: 0 }, { scaleX: 1 }, at + 0.1)
           if (i < callouts.length - 1) tl.to(el, { autoAlpha: 0, y: -24, filter: 'blur(6px)' }, at + 1.7)
+          // the last beat draws Poland behind the can (PolandMap reads store.poland)
+          else tl.fromTo(store, { poland: 0 }, { poland: 1, duration: 2.8, ease: 'none' }, at - 0.2)
         })
-        tl.to({}, { duration: 0.6 })
+        tl.to({}, { duration: 0.8 })
+        return () => {
+          store.poland = 0
+        }
       })
 
       mm.add(MQ.reduced, () => {
         gsap.set('[data-callout]', { autoAlpha: 1 })
+        store.poland = 1
+        return () => {
+          store.poland = 0
+        }
       })
     },
     { scope: root },
   )
 
   return (
-    <section ref={root} id="reveal" data-scene data-sticky className="relative h-[300vh] max-md:h-[260vh]" aria-labelledby="reveal-title">
+    <section ref={root} id="reveal" data-scene data-sticky className="relative h-[380vh] max-md:h-[330vh]" aria-labelledby="reveal-title">
       <div className="sticky top-0 z-[3] h-svh overflow-clip">
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-ink via-ink/75 to-transparent md:hidden" />
         <div data-reveal-head className="absolute inset-x-5 bottom-[max(4.5rem,calc(env(safe-area-inset-bottom)+3.5rem))] md:inset-x-10 md:top-28 md:bottom-auto">
